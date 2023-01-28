@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tictok_clone/authentication/widget/signup_screen.dart';
+import 'package:tictok_clone/features/navigation/main_navigation_screen.dart';
 
 void main() {
   runApp(const TikTokApp());
@@ -13,12 +13,21 @@ class TikTokApp extends StatelessWidget {
     return MaterialApp(
       title: "TicTok App",
       theme: ThemeData(
-        primaryColor: const Color.fromARGB(255, 199, 38, 164),
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: const Color.fromARGB(179, 241, 71, 41),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color.fromARGB(179, 241, 71, 41),
+        ),
+        splashColor: Colors.transparent,
         appBarTheme: const AppBarTheme(
+          elevation: 0,
           color: Colors.white,
+          foregroundColor: Colors.black,
+          centerTitle: true,
         ),
       ),
-      home: const SignUpScreen(),
+      home: const MainNavigationScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

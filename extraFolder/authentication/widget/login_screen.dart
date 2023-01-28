@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tictok_clone/authentication/widget/signup_button.dart';
 
-import '../../constants/gaps.dart';
-import '../../constants/sizes.dart';
-import 'login_screen.dart';
+import '../../../lib/constants/gaps.dart';
+import '../../../lib/constants/sizes.dart';
+import '../auth_button.dart';
+import 'login_form_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
-  void _onLoginTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-    );
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  void _onSignUPTap(BuildContext context) {
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: Sizes.size32,
@@ -29,7 +30,7 @@ class SignUpScreen extends StatelessWidget {
         child: Column(
           children: [
             const Text(
-              "Sign up for TikTok",
+              "Login for TikTok",
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: Sizes.size24,
@@ -37,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
             ),
             Gaps.v16,
             Text(
-              "Create a profile, follow other acounts, make your own videos, and more.",
+              "Manage your accountm check notifications, comment on videos, and more",
               style: TextStyle(
                 fontSize: Sizes.size14,
                 color: Colors.grey.shade500,
@@ -45,25 +46,34 @@ class SignUpScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Gaps.v24,
-            const SignUpButton(
+            AuthButton(
               icon: FontAwesomeIcons.user,
-              text: "Use phone or email",
+              text: "Use Email",
+              screen: const LoginFormScreen(),
+              context: context,
             ),
-            Gaps.v14,
-            const SignUpButton(
-              icon: FontAwesomeIcons.facebook,
-              text: "Continue with Facebook",
-            ),
-            Gaps.v14,
-            const SignUpButton(
+            Gaps.v24,
+            AuthButton(
               icon: FontAwesomeIcons.apple,
-              text: "Continue with Apple",
+              text: "Use Apple",
+              screen: const LoginFormScreen(),
+              context: context,
             ),
-            Gaps.v14,
-            const SignUpButton(
-              icon: FontAwesomeIcons.google,
-              text: "Continue with Google",
-            ),
+            // Gaps.v14,
+            // const SignUpButton(
+            //   icon: FontAwesomeIcons.facebook,
+            //   text: "Continue with Facebook",
+            // ),
+            // Gaps.v14,
+            // const SignUpButton(
+            //   icon: FontAwesomeIcons.apple,
+            //   text: "Continue with Apple",
+            // ),
+            // Gaps.v14,
+            // const SignUpButton(
+            //   icon: FontAwesomeIcons.google,
+            //   text: "Continue with Google",
+            // ),
           ],
         ),
       ),
@@ -78,9 +88,9 @@ class SignUpScreen extends StatelessWidget {
               const Text("Already have an account?"),
               Gaps.h5,
               GestureDetector(
-                onTap: () => _onLoginTap(context),
+                onTap: () => _onSignUPTap(context),
                 child: const Text(
-                  "Log in",
+                  "Sign up",
                   style: TextStyle(color: Colors.red),
                 ),
               )

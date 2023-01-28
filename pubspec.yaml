@@ -37,6 +37,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   font_awesome_flutter: 10.3.0
+  hovering: ^1.0.4
+  shared_preferences: ^2.0.15
+  video_player: 2.4.10
+
+  # VideoPlayer plays video after users completely scroll down so that play one video at once
+  visibility_detector: 0.3.3 
+  animate_icons: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -61,7 +69,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+      - assets/test.gif
+      - assets/videos/smart_watch.mp4
+      - assets/images/city.jpg
+    
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
