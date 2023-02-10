@@ -26,9 +26,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   void _deleteItem(int index) {
     if (_key.currentState != null) {
       _key.currentState!.removeItem(
-        index,
-        (context, animation) => _chatTile(animation, index),
-      );
+          index, (context, animation) => _chatTile(animation, index));
       _items.removeAt(index);
     }
   }
