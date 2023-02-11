@@ -44,6 +44,7 @@ dependencies:
   # VideoPlayer plays video after users completely scroll down so that play one video at once
   visibility_detector: 0.3.3 
   animate_icons: ^2.0.0
+  google_fonts: ^4.0.3
 
 
 dev_dependencies:
@@ -70,7 +71,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-      - assets/test.gif
+      - assets/images/test.gif
       - assets/videos/smart_watch.mp4
       - assets/images/city.jpg
     
