@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
+import 'package:tictok_clone/utils/util.dart';
 
 import 'login_form_screen.dart';
 
@@ -25,7 +26,7 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
         bottomNavigationBar: BottomAppBar(
-          color: Colors.grey.shade100,
+          color: isDarkMode(context) ? null : Colors.grey.shade100,
           elevation: 2,
           child: Padding(
             padding: const EdgeInsets.symmetric(
