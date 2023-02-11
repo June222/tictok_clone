@@ -13,6 +13,7 @@ class TikTokApp extends StatelessWidget {
     return MaterialApp(
       title: "TicTok App",
       theme: ThemeData(
+        brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
         primaryColor: const Color.fromARGB(179, 241, 71, 41),
         textSelectionTheme: const TextSelectionThemeData(
@@ -25,6 +26,12 @@ class TikTokApp extends StatelessWidget {
           foregroundColor: Colors.black,
           centerTitle: true,
         ),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: const Color.fromARGB(179, 241, 71, 41),
+        bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade900),
       ),
       home: const MainNavigationScreen(),
       debugShowCheckedModeBanner: false,
