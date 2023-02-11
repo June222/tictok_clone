@@ -14,27 +14,28 @@ class TikTokApp extends StatelessWidget {
     return MaterialApp(
       title: "TicTok App",
       theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.white,
-        primaryColor: const Color.fromARGB(179, 241, 71, 41),
-        textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: Color.fromARGB(179, 241, 71, 41),
-        ),
-        splashColor: Colors.transparent,
-        appBarTheme: const AppBarTheme(
-          elevation: 0,
-          color: Colors.white,
-          foregroundColor: Colors.black,
-          centerTitle: true,
-        ),
-        textTheme: GoogleFonts.itimTextTheme(),
-      ),
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Colors.white,
+          primaryColor: const Color.fromARGB(179, 241, 71, 41),
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Color.fromARGB(179, 241, 71, 41),
+          ),
+          splashColor: Colors.transparent,
+          appBarTheme: const AppBarTheme(
+            elevation: 0,
+            color: Colors.white,
+            foregroundColor: Colors.black,
+            centerTitle: true,
+          ),
+          textTheme: GoogleFonts.itimTextTheme()),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
         primaryColor: const Color.fromARGB(179, 241, 71, 41),
         bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade900),
-        textTheme: GoogleFonts.itimTextTheme(),
+        textTheme: GoogleFonts.itimTextTheme(
+          ThemeData(brightness: Brightness.dark).textTheme,
+        ),
       ),
       home: const LoginScreen(),
       debugShowCheckedModeBanner: false,
