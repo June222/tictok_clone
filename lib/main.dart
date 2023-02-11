@@ -28,65 +28,32 @@ class TikTokApp extends StatelessWidget {
           centerTitle: true,
         ),
         textTheme: TextTheme(
-          displayLarge: GoogleFonts.raleway(
-            fontSize: 99,
-            fontWeight: FontWeight.w300,
-            letterSpacing: -1.5,
-          ),
-          displayMedium: GoogleFonts.raleway(
-            fontSize: 62,
-            fontWeight: FontWeight.w300,
-            letterSpacing: -0.5,
-          ),
+          displayLarge: GoogleFonts.ubuntu(
+              fontSize: 99, fontWeight: FontWeight.w300, letterSpacing: -1.5),
+          displayMedium: GoogleFonts.ubuntu(
+              fontSize: 62, fontWeight: FontWeight.w300, letterSpacing: -0.5),
           displaySmall:
-              GoogleFonts.raleway(fontSize: 49, fontWeight: FontWeight.w400),
-          headlineMedium: GoogleFonts.raleway(
-            fontSize: 35,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 0.25,
-          ),
+              GoogleFonts.ubuntu(fontSize: 49, fontWeight: FontWeight.w400),
+          headlineMedium: GoogleFonts.ubuntu(
+              fontSize: 35, fontWeight: FontWeight.w400, letterSpacing: 0.25),
           headlineSmall:
-              GoogleFonts.raleway(fontSize: 25, fontWeight: FontWeight.w400),
-          titleLarge: GoogleFonts.raleway(
-            fontSize: 21,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 0.15,
-          ),
-          titleMedium: GoogleFonts.raleway(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 0.15,
-          ),
-          titleSmall: GoogleFonts.raleway(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 0.1,
-          ),
-          bodyLarge: GoogleFonts.splineSans(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 0.5,
-          ),
-          bodyMedium: GoogleFonts.splineSans(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 0.25,
-          ),
-          labelLarge: GoogleFonts.splineSans(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 1.25,
-          ),
-          bodySmall: GoogleFonts.splineSans(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 0.4,
-          ),
-          labelSmall: GoogleFonts.splineSans(
-            fontSize: 10,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 1.5,
-          ),
+              GoogleFonts.ubuntu(fontSize: 25, fontWeight: FontWeight.w400),
+          titleLarge: GoogleFonts.ubuntu(
+              fontSize: 21, fontWeight: FontWeight.w500, letterSpacing: 0.15),
+          titleMedium: GoogleFonts.ubuntu(
+              fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
+          titleSmall: GoogleFonts.ubuntu(
+              fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+          bodyLarge: GoogleFonts.robotoSlab(
+              fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
+          bodyMedium: GoogleFonts.robotoSlab(
+              fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+          labelLarge: GoogleFonts.robotoSlab(
+              fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
+          bodySmall: GoogleFonts.robotoSlab(
+              fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+          labelSmall: GoogleFonts.robotoSlab(
+              fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
         ),
       ),
       darkTheme: ThemeData(
@@ -94,6 +61,34 @@ class TikTokApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         primaryColor: const Color.fromARGB(179, 241, 71, 41),
         bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade900),
+        textTheme: TextTheme(
+          displayLarge: GoogleFonts.ubuntu(
+              fontSize: 99, fontWeight: FontWeight.w300, letterSpacing: -1.5),
+          displayMedium: GoogleFonts.ubuntu(
+              fontSize: 62, fontWeight: FontWeight.w300, letterSpacing: -0.5),
+          displaySmall:
+              GoogleFonts.ubuntu(fontSize: 49, fontWeight: FontWeight.w400),
+          headlineMedium: GoogleFonts.ubuntu(
+              fontSize: 35, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+          headlineSmall:
+              GoogleFonts.ubuntu(fontSize: 25, fontWeight: FontWeight.w400),
+          titleLarge: GoogleFonts.ubuntu(
+              fontSize: 21, fontWeight: FontWeight.w500, letterSpacing: 0.15),
+          titleMedium: GoogleFonts.ubuntu(
+              fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
+          titleSmall: GoogleFonts.ubuntu(
+              fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
+          bodyLarge: GoogleFonts.robotoSlab(
+              fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.5),
+          bodyMedium: GoogleFonts.robotoSlab(
+              fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
+          labelLarge: GoogleFonts.robotoSlab(
+              fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
+          bodySmall: GoogleFonts.robotoSlab(
+              fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+          labelSmall: GoogleFonts.robotoSlab(
+              fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
+        ),
       ),
       home: const LoginScreen(),
       debugShowCheckedModeBanner: false,
