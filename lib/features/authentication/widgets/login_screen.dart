@@ -68,12 +68,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 Gaps.v20,
-                const Text(
+                Text(
                   "Create a profile, follow other accounts, make your own videos, and more.",
-                  style: TextStyle(
-                    fontSize: Sizes.size16,
-                    color: Colors.black45,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium,
                   textAlign: TextAlign.center,
                 ),
                 Gaps.v40,
