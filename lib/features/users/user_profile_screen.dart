@@ -272,7 +272,7 @@ class PersistentTabBar extends SliverPersistentHeaderDelegate {
           vertical: Sizes.size8,
         ),
         indicatorColor: Colors.black,
-        indicatorSize: TabBarIndicatorSize.label,
+        indicatorSize: TabBarIndicatorSize.label, // tabBar 아래에 밑줄 길이 설정
         tabs: [
           Padding(
             padding: EdgeInsets.symmetric(
