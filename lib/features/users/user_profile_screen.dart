@@ -7,7 +7,8 @@ import '../../constants/sizes.dart';
 import 'widgets/follower_info_tap.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+  final String username;
+  const UserProfileScreen({super.key, required this.username});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -26,168 +27,170 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     // _animationControllerList.add(_animationController);
     // _animationControllerList.add(_animationController2);
-    return SafeArea(
-      child: DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                title: const Text("NAME OF THE USER"),
-                actions: [
-                  IconButton(
-                    onPressed: _onGearPressed,
-                    icon: const FaIcon(FontAwesomeIcons.gear),
-                  ),
-                ],
-              ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    const CircleAvatar(
-                      radius: 40,
-                      foregroundImage: NetworkImage(
-                          "https://media.contentapi.ea.com/content/dam/gin/images/2018/03/fifa-online-4-key-art.jpg.adapt.crop3x5.533p.jpg"),
+    return Scaffold(
+      body: SafeArea(
+        child: DefaultTabController(
+          length: 2,
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  title: Text(widget.username),
+                  actions: [
+                    IconButton(
+                      onPressed: _onGearPressed,
+                      icon: const FaIcon(FontAwesomeIcons.gear),
                     ),
-                    Gaps.v3,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "@NICKNAME",
-                          style: TextStyle(
-                            fontSize: Sizes.size18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Gaps.h10,
-                        FaIcon(
-                          FontAwesomeIcons.solidCircleCheck,
-                          color: Colors.blue.shade500,
-                        ),
-                      ],
-                    ),
-                    Gaps.v20,
-                    SizedBox(
-                      height: Sizes.size56,
-                      child: Row(
+                  ],
+                ),
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      const CircleAvatar(
+                        radius: 40,
+                        foregroundImage: NetworkImage(
+                            "https://media.contentapi.ea.com/content/dam/gin/images/2018/03/fifa-online-4-key-art.jpg.adapt.crop3x5.533p.jpg"),
+                      ),
+                      Gaps.v3,
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const FollwerInfoTap(
-                            tabNumber: "97",
-                            tabName: "Follwing",
+                          Text(
+                            "@${widget.username}",
+                            style: const TextStyle(
+                              fontSize: Sizes.size18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          VerticalDivider(
-                            width: 30,
-                            color: Colors.grey.shade500,
-                            indent: 10,
-                            endIndent: 10,
+                          Gaps.h10,
+                          FaIcon(
+                            FontAwesomeIcons.solidCircleCheck,
+                            color: Colors.blue.shade500,
                           ),
-                          const FollwerInfoTap(
-                            tabNumber: "10M",
-                            tabName: "Followers",
-                          ),
-                          VerticalDivider(
-                            width: 30,
-                            color: Colors.grey.shade500,
-                            indent: 10,
-                            endIndent: 10,
-                          ),
-                          const FollwerInfoTap(
-                            tabNumber: "194.3M",
-                            tabName: "Likes",
-                          )
                         ],
                       ),
-                    ),
-                    Gaps.v20,
-                    FractionallySizedBox(
-                      widthFactor: 0.4,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: Sizes.size14,
+                      Gaps.v20,
+                      SizedBox(
+                        height: Sizes.size56,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const FollwerInfoTap(
+                              tabNumber: "97",
+                              tabName: "Follwing",
+                            ),
+                            VerticalDivider(
+                              width: 30,
+                              color: Colors.grey.shade500,
+                              indent: 10,
+                              endIndent: 10,
+                            ),
+                            const FollwerInfoTap(
+                              tabNumber: "10M",
+                              tabName: "Followers",
+                            ),
+                            VerticalDivider(
+                              width: 30,
+                              color: Colors.grey.shade500,
+                              indent: 10,
+                              endIndent: 10,
+                            ),
+                            const FollwerInfoTap(
+                              tabNumber: "194.3M",
+                              tabName: "Likes",
+                            )
+                          ],
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1),
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        child: const Text(
-                          "Follow",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                      ),
+                      Gaps.v20,
+                      FractionallySizedBox(
+                        widthFactor: 0.4,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: Sizes.size14,
                           ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(1),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          child: const Text(
+                            "Follow",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Gaps.v20,
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: Sizes.size24,
+                        ),
+                        child: Text(
+                          "All highlights and where to watch live matches on FIFA+ I wonder how it would loook",
                           textAlign: TextAlign.center,
+                          maxLines: 1,
                         ),
                       ),
-                    ),
-                    Gaps.v20,
-                    const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Sizes.size24,
-                      ),
-                      child: Text(
-                        "All highlights and where to watch live matches on FIFA+ I wonder how it would loook",
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                      ),
-                    ),
-                    Gaps.v8,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        FaIcon(
-                          FontAwesomeIcons.link,
-                          size: Sizes.size18,
-                        ),
-                        Gaps.h10,
-                        Text(
-                          "https://github.com/June222",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                      Gaps.v8,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          FaIcon(
+                            FontAwesomeIcons.link,
+                            size: Sizes.size18,
                           ),
-                        ),
-                      ],
-                    ),
-                    Gaps.v8,
-                  ],
+                          Gaps.h10,
+                          Text(
+                            "https://github.com/June222",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gaps.v8,
+                    ],
+                  ),
                 ),
-              ),
-              SliverPersistentHeader(
-                delegate: PersistentTabBar(),
-                pinned: true,
-              ),
-            ];
-          },
-          body: TabBarView(
-            children: [
-              GridView.builder(
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                itemCount: 20,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 9 / 14,
-                  crossAxisCount: 3,
-                  crossAxisSpacing: Sizes.size2,
-                  mainAxisSpacing: Sizes.size2,
+                SliverPersistentHeader(
+                  delegate: PersistentTabBar(),
+                  pinned: true,
                 ),
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 9 / 14,
-                      child: FadeInImage.assetNetwork(
-                          fit: BoxFit.cover,
-                          placeholder: "assets/images/test.gif",
-                          image:
-                              "https://t1.daumcdn.net/cfile/tistory/993237475E23AE5125"),
-                    ),
-                  ],
+              ];
+            },
+            body: TabBarView(
+              children: [
+                GridView.builder(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  itemCount: 20,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 9 / 14,
+                    crossAxisCount: 3,
+                    crossAxisSpacing: Sizes.size2,
+                    mainAxisSpacing: Sizes.size2,
+                  ),
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 9 / 14,
+                        child: FadeInImage.assetNetwork(
+                            fit: BoxFit.cover,
+                            placeholder: "assets/images/test.gif",
+                            image:
+                                "https://avatars.githubusercontent.com/u/38900003?v=4"),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const Center(
-                child: Text("Page two"),
-              ),
-            ],
+                const Center(
+                  child: Text("Page two"),
+                ),
+              ],
+            ),
           ),
         ),
       ),

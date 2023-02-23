@@ -3,6 +3,7 @@ import 'package:tictok_clone/features/authentication/username_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/email_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/login_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/sign_up_screen.dart';
+import 'package:tictok_clone/features/users/user_profile_screen.dart';
 
 final router = GoRouter(
   routes: [
@@ -22,5 +23,14 @@ final router = GoRouter(
       path: EmailScreen.routeName,
       builder: (context, state) => const EmailScreen(),
     ),
+    GoRoute(
+      path: '/users/:username', //:다음에는 parameter의 이름을 정하는 것
+      builder: (context, state) {
+        // print(state.params);
+        final username =
+            state.params['username']; // 주소창에 입력한 parameter의 값을 불러와서 사용할 수 있음.
+        return UserProfileScreen(username: username!);
+      },
+    )
   ],
 );
