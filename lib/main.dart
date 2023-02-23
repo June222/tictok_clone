@@ -34,6 +34,7 @@ class TikTokApp extends StatelessWidget {
         primaryColor: const Color.fromARGB(179, 241, 71, 41),
         bottomAppBarTheme: BottomAppBarTheme(color: Colors.grey.shade900),
         textTheme: GoogleFonts.itimTextTheme(
+          // font 설정하는 방법
           ThemeData(brightness: Brightness.dark).textTheme,
         ),
       ),

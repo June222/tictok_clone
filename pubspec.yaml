@@ -44,7 +44,7 @@ dependencies:
   # VideoPlayer plays video after users completely scroll down so that play one video at once
   visibility_detector: 0.3.3 
   animate_icons: ^2.0.0
-  google_fonts: ^4.0.3
+  google_fonts: ^4.0.3 # font dependency
 
 
 dev_dependencies:
