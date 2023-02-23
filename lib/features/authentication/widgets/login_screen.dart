@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
+import 'package:tictok_clone/features/authentication/widgets/sign_up_screen.dart';
 import 'package:tictok_clone/utils/util.dart';
 
 import 'login_form_screen.dart';
@@ -10,8 +13,14 @@ import 'login_form_screen.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  void _onSignUpTap(BuildContext context) {
-    Navigator.of(context).pop();
+  void _onSignUpTap(BuildContext context) async {
+    // push에 대한 설명을 읽어보면 Future<T>로 되어있다. await으로 진행하고 받고싶은 data를 전달받으면 된다.
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SignUpScreen(),
+      ),
+    );
+    log(result); // 전달받은 데이터 출력
   }
 
   @override

@@ -5,17 +5,12 @@ import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/username_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
 
-import 'login_screen.dart';
-
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+    // pop()안에 return 하고싶은 데이터를 넣으면 된다.
+    Navigator.of(context).pop("popped!");
   }
 
   void _onEmailTap(BuildContext context) {
