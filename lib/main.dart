@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tictok_clone/features/authentication/widgets/email_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/login_screen.dart';
 
 void main() {
@@ -39,6 +40,9 @@ class TikTokApp extends StatelessWidget {
         ),
       ),
       home: const LoginScreen(),
+      routes: {
+        EmailScreen.routeName: (context) => const EmailScreen(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
