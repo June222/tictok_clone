@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tictok_clone/features/authentication/widgets/email_screen.dart';
-import 'package:tictok_clone/features/authentication/widgets/login_screen.dart';
+import 'package:tictok_clone/router.dart';
 
 void main() {
   runApp(const TikTokApp());
@@ -12,8 +11,9 @@ class TikTokApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: "TicTok App",
+      routerConfig: router,
       theme: ThemeData(
           brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
@@ -39,10 +39,8 @@ class TikTokApp extends StatelessWidget {
           ThemeData(brightness: Brightness.dark).textTheme,
         ),
       ),
-      home: const LoginScreen(),
-      routes: {
-        EmailScreen.routeName: (context) => const EmailScreen(),
-      },
+      // home: const LoginScreen(),
+
       debugShowCheckedModeBanner: false,
     );
   }

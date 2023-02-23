@@ -5,6 +5,7 @@ import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
 
 class LoginFormScreen extends StatefulWidget {
+  static const String routeName = "/loginform";
   const LoginFormScreen({super.key});
 
   @override

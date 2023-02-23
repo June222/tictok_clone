@@ -1,42 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/username_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
+import 'package:tictok_clone/features/authentication/widgets/login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
+  static const String routeName = '/';
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) {
-    // pop()안에 return 하고싶은 데이터를 넣으면 된다.
-    Navigator.of(context).pop("popped!");
+    // // pop()안에 return 하고싶은 데이터를 넣으면 된다.
+    // Navigator.of(context).pop("popped!");
+
+    context.push(LoginScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
-    Navigator.of(context).push(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const UserNameScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          final offsetAnimation = Tween(
-            begin: const Offset(1, 0),
-            end: const Offset(0, 0),
-          ).animate(animation);
-          final fadeAnimationFromPointFive = Tween(
-            begin: 0.5,
-            end: 1.0,
-          ).animate(animation);
-          return FadeTransition(
-            opacity: fadeAnimationFromPointFive,
-            child: SlideTransition(
-              position: offsetAnimation,
-              child: child,
-            ),
-          );
-        },
-      ),
-    );
+    // Navigator.of(context).push(
+    //   PageRouteBuilder(
+    //     pageBuilder: (context, animation, secondaryAnimation) =>
+    //         const UserNameScreen(),
+    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //       final offsetAnimation = Tween(
+    //         begin: const Offset(1, 0),
+    //         end: const Offset(0, 0),
+    //       ).animate(animation);
+    //       final fadeAnimationFromPointFive = Tween(
+    //         begin: 0.5,
+    //         end: 1.0,
+    //       ).animate(animation);
+    //       return FadeTransition(
+    //         opacity: fadeAnimationFromPointFive,
+    //         child: SlideTransition(
+    //           position: offsetAnimation,
+    //           child: child,
+    //         ),
+    //       );
+    //     },
+    //   ),
+    // );
+
+    context.push(UserNameScreen.routeName);
   }
 
   @override
