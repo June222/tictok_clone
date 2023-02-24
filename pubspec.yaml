@@ -30,23 +30,17 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animate_icons: ^2.0.0
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  camera: ^0.10.3+1
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   font_awesome_flutter: 10.3.0
-  google_fonts: ^4.0.3 # font dependency
+  go_router: ^6.0.10
+  google_fonts: ^4.0.3
   hovering: ^1.0.4
   shared_preferences: ^2.0.15
   video_player: 2.4.10
-
-  # VideoPlayer plays video after users completely scroll down so that play one video at once
   visibility_detector: 0.3.3
-
-  go_router: ^6.0.10
-
 
 dev_dependencies:
   flutter_lints: ^2.0.0
