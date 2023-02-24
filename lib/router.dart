@@ -29,7 +29,13 @@ final router = GoRouter(
         // print(state.params);
         final username =
             state.params['username']; // 주소창에 입력한 parameter의 값을 불러와서 사용할 수 있음.
-        return UserProfileScreen(username: username!);
+        // 주소창에 .../?show=###에서 ###에 적힌 값을 받아옴.
+        // 받아온 값으로 특정 tab을 열게함.
+        final tab = state.queryParams['show'];
+        return UserProfileScreen(
+          username: username!,
+          tab: tab!,
+        );
       },
     )
   ],
