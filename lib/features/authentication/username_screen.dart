@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/widgets/formbutton.dart';
+import 'package:tictok_clone/utils/util.dart';
 
 import 'widgets/email_screen.dart';
 
@@ -49,13 +50,15 @@ class _UserNameScreenState extends State<UserNameScreen> {
     //   EmailScreen.routeName,
     //   arguments: EmailScreenArgs(username: _username),
     // );
-    context.push(EmailScreen.routeName);
+    context.push(EmailScreen.routeName,
+        extra: EmailScreenArgs(username: _username));
   }
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -78,11 +81,11 @@ class _UserNameScreenState extends State<UserNameScreen> {
               ),
             ),
             Gaps.v10,
-            const Text(
+            Text(
               "You can always change this year.",
               style: TextStyle(
                 fontSize: Sizes.size16,
-                color: Colors.black54,
+                color: isDark ? Colors.white : Colors.black54,
               ),
             ),
             Gaps.v16,

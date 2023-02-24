@@ -13,7 +13,8 @@ class EmailScreenArgs {
 
 class EmailScreen extends StatefulWidget {
   static const String routeName = "${UserNameScreen.routeName}/email";
-  const EmailScreen({super.key});
+  final String username;
+  const EmailScreen({super.key, required this.username});
 
   @override
   State<EmailScreen> createState() => _EmailScreenState();
@@ -69,7 +70,7 @@ class _EmailScreenState extends State<EmailScreen> {
     return GestureDetector(
       onTap: _onScaffoldTap,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
@@ -84,9 +85,9 @@ class _EmailScreenState extends State<EmailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Gaps.v20,
-              const Text(
-                "What is your Email? ",
-                style: TextStyle(
+              Text(
+                "What is your Email? ${widget.username}",
+                style: const TextStyle(
                   fontSize: Sizes.size24,
                   fontWeight: FontWeight.w600,
                 ),
