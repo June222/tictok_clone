@@ -8,7 +8,7 @@ import 'package:tictok_clone/utils/util.dart';
 import 'widgets/email_screen.dart';
 
 class UserNameScreen extends StatefulWidget {
-  static const String routeName = '/username';
+  static const String routeURL = '/username';
 
   const UserNameScreen({super.key});
 
@@ -50,7 +50,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
     //   EmailScreen.routeName,
     //   arguments: EmailScreenArgs(username: _username),
     // );
-    context.push(EmailScreen.routeName,
+    context.push(EmailScreen.routeURL,
         extra: EmailScreenArgs(username: _username));
   }
 

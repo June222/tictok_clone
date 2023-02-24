@@ -8,14 +8,14 @@ import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tictok_clone/features/authentication/widgets/login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static const String routeName = '/';
+  static const String routeURL = '/';
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) {
     // // pop()안에 return 하고싶은 데이터를 넣으면 된다.
     // Navigator.of(context).pop("popped!");
 
-    context.push(LoginScreen.routeName);
+    context.pushNamed(LoginScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
@@ -43,7 +43,7 @@ class SignUpScreen extends StatelessWidget {
     //   ),
     // );
 
-    context.push(UserNameScreen.routeName);
+    context.push(UserNameScreen.routeURL);
   }
 
   @override

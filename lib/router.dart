@@ -8,19 +8,20 @@ import 'package:tictok_clone/features/users/user_profile_screen.dart';
 final router = GoRouter(
   routes: [
     GoRoute(
-      path: LoginScreen.routeName,
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: SignUpScreen.routeName,
+      path: SignUpScreen.routeURL,
       builder: (context, state) => const SignUpScreen(),
     ),
     GoRoute(
-      path: UserNameScreen.routeName,
+      name: LoginScreen.routeName,
+      path: LoginScreen.routeURL,
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: UserNameScreen.routeURL,
       builder: (context, state) => const UserNameScreen(),
     ),
     GoRoute(
-      path: EmailScreen.routeName,
+      path: EmailScreen.routeURL,
       builder: (context, state) {
         final args = state.extra as EmailScreenArgs;
         final username = args.username;

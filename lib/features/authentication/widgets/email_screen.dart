@@ -12,7 +12,7 @@ class EmailScreenArgs {
 }
 
 class EmailScreen extends StatefulWidget {
-  static const String routeName = "${UserNameScreen.routeName}/email";
+  static const String routeURL = "${UserNameScreen.routeURL}/email";
   final String username;
   const EmailScreen({super.key, required this.username});
 
