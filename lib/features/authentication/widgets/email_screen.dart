@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
-import 'package:tictok_clone/features/authentication/username_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/formbutton.dart';
 import 'package:tictok_clone/features/authentication/widgets/password_screen.dart';
 
@@ -12,7 +11,7 @@ class EmailScreenArgs {
 }
 
 class EmailScreen extends StatefulWidget {
-  static const String routeURL = "${UserNameScreen.routeURL}/email";
+  static const String routeURL = "email";
   final String username;
   const EmailScreen({super.key, required this.username});
 

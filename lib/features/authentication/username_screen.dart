@@ -8,7 +8,7 @@ import 'package:tictok_clone/utils/util.dart';
 import 'widgets/email_screen.dart';
 
 class UserNameScreen extends StatefulWidget {
-  static const String routeURL = '/username';
+  static const String routeURL = 'username'; // nested하게 설정을 할 경우 '/'를 쓰지않아야함.
 
   const UserNameScreen({super.key});
 

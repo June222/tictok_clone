@@ -9,7 +9,7 @@ import 'package:tictok_clone/utils/util.dart';
 import 'login_form_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const routeURL = '/login';
+  static const routeURL = 'login';
   static const routeName = 'login';
   const LoginScreen({super.key});
 
