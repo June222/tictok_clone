@@ -14,6 +14,7 @@ class VideoRecordingScreen extends StatefulWidget {
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     with TickerProviderStateMixin {
+  // 버튼을 누르면 확대되는 애니메이션
   late final AnimationController _buttonAnimationController =
       AnimationController(
           vsync: this, duration: const Duration(milliseconds: 200));
@@ -26,6 +27,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     upperBound: 1.0,
   );
 
+  // 시작에서 확대
   late final Animation<double> _buttonAnimation =
       Tween(begin: 1.0, end: 1.3).animate(_buttonAnimationController);
 
@@ -108,13 +110,13 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
   void _startRecording() {
     log("start recording");
-    _buttonAnimationController.forward();
+    _buttonAnimationController.forward(); // 누르면 확대
     _progressAnimationController.forward();
   }
 
   void _stopRecording() {
     log("stop recording");
-    _buttonAnimationController.reverse();
+    _buttonAnimationController.reverse(); // 놓으면 축소
     _progressAnimationController.reset();
   }
 
@@ -190,7 +192,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                   Positioned(
                     bottom: 40,
                     child: ScaleTransition(
-                      scale: _buttonAnimation,
+                      scale: _buttonAnimation, // 확대 애니메이션
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
@@ -203,6 +205,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                             ),
                           ),
                           GestureDetector(
+                            // 설정
+                            // * 주의 * 스택의 아래에 위치할 경우 gesture 무시됨
                             onTapDown: (details) => _startRecording(),
                             onTapUp: (details) => _stopRecording(),
                             child: Container(
