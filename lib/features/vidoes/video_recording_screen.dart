@@ -180,6 +180,21 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     );
   }
 
+  Future<void> _imagePickerCamera() async {
+    final video = await ImagePicker().pickVideo(source: ImageSource.camera);
+    if (!mounted) return;
+    if (video == null) return;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPreviewScreen(
+          video: video,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -254,7 +269,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       children: [
-                        const Spacer(),
+                        const Spacer(
+                          flex: 2,
+                        ),
                         ScaleTransition(
                           scale: _buttonAnimation, // 확대 애니메이션
                           child: Stack(
@@ -292,6 +309,14 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                             onPressed: _pickVideoFromGallery,
                             icon: const Icon(
                               FontAwesomeIcons.image,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: IconButton(
+                            onPressed: _imagePickerCamera,
+                            icon: const Icon(
+                              FontAwesomeIcons.camera,
                             ),
                           ),
                         )
