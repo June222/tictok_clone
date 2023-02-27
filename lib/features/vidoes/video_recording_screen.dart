@@ -206,7 +206,10 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                             height: 70,
                             child: CircularProgressIndicator(
                               color: Colors.red,
+
                               value: _progressAnimationController.value,
+
+                              /// [중요] Indicator에 value값에 0.0 ~ 1.0 사이의 값이 들어갈 경우 비율만큼 Indicator가 차지함
                             ),
                           ),
                           GestureDetector(
