@@ -27,7 +27,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   late final AnimationController _progressAnimationController =
       AnimationController(
     vsync: this,
-    duration: const Duration(seconds: 5),
+    duration: const Duration(seconds: 100),
     lowerBound: 0.0, // 원하는 값을 controller 정의시에 bound 값에 begin, end 대신 넣음
     upperBound: 1.0,
   );
@@ -42,6 +42,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   late FlashMode _flashMode; // 15. camera init후에 사용하여야 하기때문에 late
   bool _hasPermission = false;
   bool _isSelfiMode = false;
+  late final double _maxZoomLevel;
+  late final double _minZoomLevel;
+  Offset _offsetIncrement = const Offset(0, 0);
 
   @override
   void initState() {
@@ -143,6 +146,11 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     await _cameraController
         .prepareForVideoRecording(); // ios에서 발생하는 오디오와 비디오의 싱크문제를 해결하는 코드, android나 웹에서는 아무것도 실행되지 않는다.
     _flashMode = _cameraController.value.flashMode;
+    _maxZoomLevel = await _cameraController.getMaxZoomLevel();
+    _minZoomLevel = await _cameraController.getMinZoomLevel();
+
+    log(_maxZoomLevel.toString());
+    log(_minZoomLevel.toString());
 
     setState(() {});
   }
@@ -170,6 +178,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
     _buttonAnimationController.forward(); // 촬영중에 확대
     _progressAnimationController.forward(); // 촬영중에 진행
+
+    _offsetIncrement = const Offset(0, 0);
+    log(_offsetIncrement.toString());
   }
 
   Future<void> _stopRecording() async {
@@ -189,14 +200,14 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     /// 4. 위젯이 화면에 존재하는 동안은 true이며, 화면에서 제거되면 false가 됩니다.
     /// 5. 그러므로, mounted 속성 값을 사용하여 State 객체가 화면에 마운트된 상태인지 여부를 확인할 수 있습니다.
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => VideoPreviewScreen(
-          video: video,
-        ),
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => VideoPreviewScreen(
+    //       video: video,
+    //     ),
+    //   ),
+    // );
   }
 
   Future<void> _pickVideoFromGallery() async {
@@ -229,6 +240,24 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
         ),
       ),
     );
+  }
+
+  void _onVerticalDragUpdate(DragUpdateDetails details) {
+    setState(() {
+      _offsetIncrement += details.delta;
+      if (_offsetIncrement.dy < -10) {
+        final dy = _offsetIncrement.dy * (-1);
+        final newZoomLevel = dy / 10;
+        if (newZoomLevel > _maxZoomLevel) {
+          _cameraController.setZoomLevel(_maxZoomLevel);
+        } else {
+          _cameraController.setZoomLevel(newZoomLevel);
+        }
+      } else {
+        _cameraController.setZoomLevel(_minZoomLevel);
+      }
+    });
+    log(_offsetIncrement.toString());
   }
 
   @override
@@ -305,9 +334,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       children: [
-                        const Spacer(
-                          flex: 2,
-                        ),
+                        const Spacer(flex: 2),
                         ScaleTransition(
                           scale: _buttonAnimation, // 확대 애니메이션
                           child: Stack(
@@ -328,6 +355,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                                 // * 주의 * 스택의 아래에 위치할 경우 gesture 무시됨
                                 onTapDown: (details) => _startRecording(),
                                 onTapUp: (details) => _stopRecording(),
+
+                                onVerticalDragUpdate: _onVerticalDragUpdate,
                                 child: Container(
                                   width: 60,
                                   height: 60,
