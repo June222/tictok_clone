@@ -72,6 +72,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (_cameraController == null) return;
+    // 권한 획득 화면에서 이 Method가 호출되는데 이는 initPermission중에 호출되는 것이며 initCamera되기 전이기 때문에 controller가 null임
+    // pub.dev의 공식문서의 readme에도 코드가 있음.
     if (!_cameraController.value.isInitialized) return;
 
     if (state == AppLifecycleState.inactive) {
