@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tictok_clone/constants/gaps.dart';
+import 'package:tictok_clone/features/vidoes/video_preview_screen.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
   const VideoRecordingScreen({super.key});
@@ -56,6 +57,15 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     });
   }
 
+  @override
+  void dispose() {
+    _progressAnimationController.dispose();
+    _buttonAnimationController.dispose();
+    _cameraController.dispose();
+
+    super.dispose();
+  }
+
   Future<void> initPermission() async {
     final cameraPermission = await Permission.camera.request(); // 1. 권한 얻기
     final micPermission = await Permission.microphone.request();
@@ -93,7 +103,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       // Affect the quality of video recording and image capture:
       // If a preset is not available on the camera being used a preset of lower quality will be selected automatically.
     );
-
+    await _cameraController.prepareForVideoRecording();
     await _cameraController.initialize(); // 9. camera init
     _flashMode = _cameraController.value.flashMode;
   }
@@ -113,16 +123,33 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     setState(() {});
   }
 
-  void _startRecording() {
+  Future<void> _startRecording() async {
+    if (_cameraController.value.isRecordingVideo) return;
     log("start recording");
+    await _cameraController.startVideoRecording();
+
     _buttonAnimationController.forward(); // 촬영중에 확대
     _progressAnimationController.forward(); // 촬영중에 진행
   }
 
-  void _stopRecording() {
+  Future<void> _stopRecording() async {
+    if (!_cameraController.value.isRecordingVideo) return;
     log("stop recording");
+
     _buttonAnimationController.reverse(); // 촬영이 끝나면 축소
     _progressAnimationController.reset(); // 촬영이 끝나면 Indicator 삭제
+
+    final video = await _cameraController.stopVideoRecording();
+
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPreviewScreen(
+          video: video,
+        ),
+      ),
+    );
   }
 
   @override
@@ -207,9 +234,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                             child: CircularProgressIndicator(
                               color: Colors.red,
 
-                              value: _progressAnimationController.value,
-
-                              /// [중요] Indicator에 value값에 0.0 ~ 1.0 사이의 값이 들어갈 경우 비율만큼 Indicator가 차지함
+                              value: _progressAnimationController
+                                  .value, // [중요] Indicator에 value값에 0.0 ~ 1.0 사이의 값이 들어갈 경우 비율만큼 Indicator가 차지함
                             ),
                           ),
                           GestureDetector(
