@@ -17,6 +17,7 @@ class VideoRecordingScreen extends StatefulWidget {
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     with TickerProviderStateMixin, WidgetsBindingObserver {
+  // 1. Observer mixin 사용
   // 버튼을 누르면 확대되는 애니메이션
   late final AnimationController _buttonAnimationController =
       AnimationController(
@@ -46,7 +47,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   void initState() {
     super.initState();
     initPermission(); // 0. initState에 선언
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addObserver(this); // 2. initState에서 화면 이탈을 체크
     // 진행 상황을 실시간으로 변경
     _progressAnimationController.addListener(() {
       setState(() {});
@@ -69,6 +70,25 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     super.dispose();
   }
 
+  /// pub.dev 공식 문서
+  /// ```
+  /// @override
+  /// void didChangeAppLifecycleState(AppLifecycleState state) {
+  ///   final CameraController? cameraController = controller;
+  ///
+  ///   // App state changed before we got the chance to initialize.
+  ///   if (cameraController == null || !cameraController.value.isInitialized) {
+  ///     return;
+  ///   }
+  ///
+  ///   if (state == AppLifecycleState.inactive) {
+  ///     cameraController.dispose();
+  ///   } else if (state == AppLifecycleState.resumed) {
+  ///     onNewCameraSelected(cameraController.description);
+  ///   }
+  /// }
+  /// ```
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (_cameraController == null) return;
@@ -77,9 +97,10 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     if (!_cameraController.value.isInitialized) return;
 
     if (state == AppLifecycleState.inactive) {
+      // 3. 화면 이탈시에 (기본 home 버튼으로 종료하지 않고, backgroud로 빠져나가기) controller를 dispose
       _cameraController.dispose();
     } else if (state == AppLifecycleState.resumed) {
-      initCamera();
+      initCamera(); // 4. 복귀하면 새로운 카메라를 정의, _cameraController.initialized();
     }
   }
 
