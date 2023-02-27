@@ -103,8 +103,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       // Affect the quality of video recording and image capture:
       // If a preset is not available on the camera being used a preset of lower quality will be selected automatically.
     );
-    await _cameraController.prepareForVideoRecording();
     await _cameraController.initialize(); // 9. camera init
+    await _cameraController
+        .prepareForVideoRecording(); // ios에서 발생하는 오디오와 비디오의 싱크문제를 해결하는 코드, android나 웹에서는 아무것도 실행되지 않는다.
     _flashMode = _cameraController.value.flashMode;
   }
 
@@ -126,7 +127,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   Future<void> _startRecording() async {
     if (_cameraController.value.isRecordingVideo) return;
     log("start recording");
-    await _cameraController.startVideoRecording();
+    await _cameraController.startVideoRecording(); // 비디오 녹화 시작.
 
     _buttonAnimationController.forward(); // 촬영중에 확대
     _progressAnimationController.forward(); // 촬영중에 진행
