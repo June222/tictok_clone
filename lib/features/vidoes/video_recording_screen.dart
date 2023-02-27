@@ -166,7 +166,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   Future<void> _pickVideoFromGallery() async {
     final video = await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (!mounted) return;
-    if (video == null) return;
+    if (video == null) return; // 이미지가 안 골라지고 나올 수 있음.
     log(video.toString());
 
     Navigator.push(
