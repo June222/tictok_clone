@@ -147,11 +147,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
     if (!mounted) return;
 
-    /// mounted 속성 값이 true인 시간은 State 객체가 화면에 마운트된 이후부터 화면에서 제거될 때까지입니다.
-    /// 이러한 기간은 위젯의 생명주기에 따라 다르며, 위젯이 다시 빌드될 때마다 mounted 속성 값은 true가 됩니다.
-    /// 따라서, mounted 속성 값이 true인 시간은 위젯의 생명주기에 따라 다르지만,
-    /// 위젯이 화면에 존재하는 동안은 true이며, 화면에서 제거되면 false가 됩니다.
-    /// 그러므로, mounted 속성 값을 사용하여 State 객체가 화면에 마운트된 상태인지 여부를 확인할 수 있습니다.
+    /// 1. mounted 속성 값이 true인 시간은 State 객체가 화면에 마운트된 이후부터 화면에서 제거될 때까지입니다.
+    /// 2. 이러한 기간은 위젯의 생명주기에 따라 다르며, 위젯이 다시 빌드될 때마다 mounted 속성 값은 true가 됩니다.
+    /// 3. 따라서, mounted 속성 값이 true인 시간은 위젯의 생명주기에 따라 다르지만,
+    /// 4. 위젯이 화면에 존재하는 동안은 true이며, 화면에서 제거되면 false가 됩니다.
+    /// 5. 그러므로, mounted 속성 값을 사용하여 State 객체가 화면에 마운트된 상태인지 여부를 확인할 수 있습니다.
+
     Navigator.push(
       context,
       MaterialPageRoute(
