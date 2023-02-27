@@ -35,6 +35,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
       // 3. 권한이 주어질 때만 사용하기
       _hasPermission = true;
       await initCamera(); // 4. 카메라 init
+      // build에 controller.value가 있는데 initCamera되기전에 setState를 할 경우 build가 먼저 되버림... 알아두고 꼭 다음번에 쓰자.
       setState(() {});
     }
   }
