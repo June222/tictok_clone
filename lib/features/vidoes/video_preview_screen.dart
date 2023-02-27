@@ -8,8 +8,10 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPreviewScreen extends StatefulWidget {
-  const VideoPreviewScreen({super.key, required this.video});
+  const VideoPreviewScreen(
+      {super.key, required this.video, this.isPicked = false});
   final XFile video; // 전달 받은 비디오 파일 정보
+  final bool? isPicked;
   @override
   State<VideoPreviewScreen> createState() => _VideoPreviewScreenState();
 }
@@ -49,25 +51,37 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     setState(() {});
   }
 
+  void _togglePause() {
+    if (_videoPlayerController.value.isPlaying) {
+      _videoPlayerController.pause();
+    } else {
+      _videoPlayerController.play();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     log(widget.video.path);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Preview Video"),
-        actions: [
-          IconButton(
-            onPressed: _saveToGallery,
-            icon: FaIcon(
-              _isSaved ? FontAwesomeIcons.check : FontAwesomeIcons.download,
-            ),
-          )
-        ],
+    return GestureDetector(
+      onTap: _togglePause,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Preview Video"),
+          actions: [
+            if (_isSaved)
+              IconButton(
+                onPressed: _saveToGallery,
+                icon: FaIcon(
+                  _isSaved ? FontAwesomeIcons.check : FontAwesomeIcons.download,
+                ),
+              )
+          ],
+        ),
+        body: _videoPlayerController.value.isInitialized
+            ? VideoPlayer(
+                _videoPlayerController) // type(VideoPlayer) == Widget 임.
+            : const Text("No Video"),
       ),
-      body: _videoPlayerController.value.isInitialized
-          ? VideoPlayer(
-              _videoPlayerController) // type(VideoPlayer) == Widget 임.
-          : const Text("No Video"),
     );
   }
 }

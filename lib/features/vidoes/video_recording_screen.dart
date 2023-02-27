@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/features/vidoes/video_preview_screen.dart';
@@ -143,12 +145,35 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
     final video = await _cameraController.stopVideoRecording(); // .비디오 녹화 종료.
 
-    // ignore: use_build_context_synchronously
+    if (!mounted) return;
+
+    /// mounted 속성 값이 true인 시간은 State 객체가 화면에 마운트된 이후부터 화면에서 제거될 때까지입니다.
+    /// 이러한 기간은 위젯의 생명주기에 따라 다르며, 위젯이 다시 빌드될 때마다 mounted 속성 값은 true가 됩니다.
+    /// 따라서, mounted 속성 값이 true인 시간은 위젯의 생명주기에 따라 다르지만,
+    /// 위젯이 화면에 존재하는 동안은 true이며, 화면에서 제거되면 false가 됩니다.
+    /// 그러므로, mounted 속성 값을 사용하여 State 객체가 화면에 마운트된 상태인지 여부를 확인할 수 있습니다.
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => VideoPreviewScreen(
           video: video,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _pickVideoFromGallery() async {
+    final video = await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (!mounted) return;
+    if (video == null) return;
+    log(video.toString());
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPreviewScreen(
+          video: video,
+          isPicked: true,
         ),
       ),
     );
@@ -225,37 +250,51 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                   ),
                   Positioned(
                     bottom: 40,
-                    child: ScaleTransition(
-                      scale: _buttonAnimation, // 확대 애니메이션
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          SizedBox(
-                            width: 70, // 사이즈를 아래 버튼보다 크게해야 보임
-                            height: 70,
-                            child: CircularProgressIndicator(
-                              color: Colors.red,
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        ScaleTransition(
+                          scale: _buttonAnimation, // 확대 애니메이션
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              SizedBox(
+                                width: 70, // 사이즈를 아래 버튼보다 크게해야 보임
+                                height: 70,
+                                child: CircularProgressIndicator(
+                                  color: Colors.red,
 
-                              value: _progressAnimationController
-                                  .value, // [중요] Indicator에 value값에 0.0 ~ 1.0 사이의 값이 들어갈 경우 비율만큼 Indicator가 차지함
-                            ),
-                          ),
-                          GestureDetector(
-                            // 설정
-                            // * 주의 * 스택의 아래에 위치할 경우 gesture 무시됨
-                            onTapDown: (details) => _startRecording(),
-                            onTapUp: (details) => _stopRecording(),
-                            child: Container(
-                              width: 60,
-                              height: 60,
-                              decoration: const BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
+                                  value: _progressAnimationController
+                                      .value, // [중요] Indicator에 value값에 0.0 ~ 1.0 사이의 값이 들어갈 경우 비율만큼 Indicator가 차지함
+                                ),
                               ),
+                              GestureDetector(
+                                // 설정
+                                // * 주의 * 스택의 아래에 위치할 경우 gesture 무시됨
+                                onTapDown: (details) => _startRecording(),
+                                onTapUp: (details) => _stopRecording(),
+                                child: Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: IconButton(
+                            onPressed: _pickVideoFromGallery,
+                            icon: const Icon(
+                              FontAwesomeIcons.image,
                             ),
                           ),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                 ],
