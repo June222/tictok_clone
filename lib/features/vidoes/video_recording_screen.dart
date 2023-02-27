@@ -12,7 +12,23 @@ class VideoRecordingScreen extends StatefulWidget {
   State<VideoRecordingScreen> createState() => _VideoRecordingScreenState();
 }
 
-class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
+class _VideoRecordingScreenState extends State<VideoRecordingScreen>
+    with TickerProviderStateMixin {
+  late final AnimationController _buttonAnimationController =
+      AnimationController(
+          vsync: this, duration: const Duration(milliseconds: 200));
+
+  late final AnimationController _progressAnimationController =
+      AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 5),
+    lowerBound: 0.0,
+    upperBound: 1.0,
+  );
+
+  late final Animation<double> _buttonAnimation =
+      Tween(begin: 1.0, end: 1.3).animate(_buttonAnimationController);
+
   late CameraController
       _cameraController; // 7. late로 카메라 Controller 선언 // 14. 재정의되면 안되므로 final 삭제
   late FlashMode _flashMode; // 15. camera init후에 사용하여야 하기때문에 late
@@ -23,6 +39,14 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   void initState() {
     super.initState();
     initPermission(); // 0. initState에 선언
+    _progressAnimationController.addListener(() {
+      setState(() {});
+    });
+    _progressAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _stopRecording();
+      }
+    });
   }
 
   Future<void> initPermission() async {
@@ -80,6 +104,18 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     _flashMode = _cameraController
         .value.flashMode; // 16. controller에서 현재 flashLight 모드에 대한 정보를 가져올 수 있음.
     setState(() {});
+  }
+
+  void _startRecording() {
+    log("start recording");
+    _buttonAnimationController.forward();
+    _progressAnimationController.forward();
+  }
+
+  void _stopRecording() {
+    log("stop recording");
+    _buttonAnimationController.reverse();
+    _progressAnimationController.reset();
   }
 
   @override
@@ -149,6 +185,37 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                         ),
                         Gaps.v10,
                       ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 40,
+                    child: ScaleTransition(
+                      scale: _buttonAnimation,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SizedBox(
+                            width: 70,
+                            height: 70,
+                            child: CircularProgressIndicator(
+                              color: Colors.red,
+                              value: _progressAnimationController.value,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTapDown: (details) => _startRecording(),
+                            onTapUp: (details) => _stopRecording(),
+                            child: Container(
+                              width: 60,
+                              height: 60,
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
