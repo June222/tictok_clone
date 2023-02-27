@@ -128,7 +128,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     if (_cameraController.value.isRecordingVideo) return;
     log("start recording");
     await _cameraController
-        .startVideoRecording(); // 비디오 녹화 시작. + 다른 애니메이션들과 iniState, dispose위치를 대칭으로 해주지 않으면 오류가 생김 이유는 모르겠음.
+        .startVideoRecording(); // .비디오 녹화 시작. + 다른 애니메이션들과 iniState, dispose위치를 대칭으로 해주지 않으면 오류가 생김 이유는 모르겠음.
 
     _buttonAnimationController.forward(); // 촬영중에 확대
     _progressAnimationController.forward(); // 촬영중에 진행
@@ -141,7 +141,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _buttonAnimationController.reverse(); // 촬영이 끝나면 축소
     _progressAnimationController.reset(); // 촬영이 끝나면 Indicator 삭제
 
-    final video = await _cameraController.stopVideoRecording(); // 비디오 녹화 종료
+    final video = await _cameraController.stopVideoRecording(); // .비디오 녹화 종료.
 
     // ignore: use_build_context_synchronously
     Navigator.push(
