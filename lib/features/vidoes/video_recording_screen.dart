@@ -19,11 +19,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       AnimationController(
           vsync: this, duration: const Duration(milliseconds: 200));
 
+  // 별도의 애니메이션 정의 없이 controller로 바로 사용
   late final AnimationController _progressAnimationController =
       AnimationController(
     vsync: this,
     duration: const Duration(seconds: 5),
-    lowerBound: 0.0,
+    lowerBound: 0.0, // 원하는 값을 controller 정의시에 bound 값에 begin, end 대신 넣음
     upperBound: 1.0,
   );
 
@@ -41,9 +42,13 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   void initState() {
     super.initState();
     initPermission(); // 0. initState에 선언
+
+    // 진행 상황을 실시간으로 변경
     _progressAnimationController.addListener(() {
       setState(() {});
     });
+
+    // 정해진 Timer가 끝나면 종료
     _progressAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _stopRecording();
@@ -110,14 +115,14 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
   void _startRecording() {
     log("start recording");
-    _buttonAnimationController.forward(); // 누르면 확대
-    _progressAnimationController.forward();
+    _buttonAnimationController.forward(); // 촬영중에 확대
+    _progressAnimationController.forward(); // 촬영중에 진행
   }
 
   void _stopRecording() {
     log("stop recording");
-    _buttonAnimationController.reverse(); // 놓으면 축소
-    _progressAnimationController.reset();
+    _buttonAnimationController.reverse(); // 촬영이 끝나면 축소
+    _progressAnimationController.reset(); // 촬영이 끝나면 Indicator 삭제
   }
 
   @override
@@ -197,7 +202,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                         alignment: Alignment.center,
                         children: [
                           SizedBox(
-                            width: 70,
+                            width: 70, // 사이즈를 아래 버튼보다 크게해야 보임
                             height: 70,
                             child: CircularProgressIndicator(
                               color: Colors.red,
