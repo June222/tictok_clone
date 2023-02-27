@@ -16,7 +16,7 @@ class VideoRecordingScreen extends StatefulWidget {
 }
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   // 버튼을 누르면 확대되는 애니메이션
   late final AnimationController _buttonAnimationController =
       AnimationController(
@@ -37,6 +37,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
   late CameraController
       _cameraController; // 7. late로 카메라 Controller 선언 // 14. 재정의되면 안되므로 final 삭제
+
   late FlashMode _flashMode; // 15. camera init후에 사용하여야 하기때문에 late
   bool _hasPermission = false;
   bool _isSelfiMode = false;
@@ -45,7 +46,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   void initState() {
     super.initState();
     initPermission(); // 0. initState에 선언
-
+    WidgetsBinding.instance.addObserver(this);
     // 진행 상황을 실시간으로 변경
     _progressAnimationController.addListener(() {
       setState(() {});
@@ -68,6 +69,18 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     super.dispose();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_cameraController == null) return;
+    if (!_cameraController.value.isInitialized) return;
+
+    if (state == AppLifecycleState.inactive) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      initCamera();
+    }
+  }
+
   Future<void> initPermission() async {
     final cameraPermission = await Permission.camera.request(); // 1. 권한 얻기
     final micPermission = await Permission.microphone.request();
@@ -81,8 +94,6 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       // 3. 권한이 주어질 때만 사용하기
       _hasPermission = true;
       await initCamera(); // 4. 카메라 init
-      // build에 controller.value가 있는데 initCamera되기전에 setState를 할 경우 build가 먼저 되버림... 알아두고 꼭 다음번에 쓰자.
-      setState(() {});
     }
   }
 
@@ -109,6 +120,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     await _cameraController
         .prepareForVideoRecording(); // ios에서 발생하는 오디오와 비디오의 싱크문제를 해결하는 코드, android나 웹에서는 아무것도 실행되지 않는다.
     _flashMode = _cameraController.value.flashMode;
+
+    setState(() {});
   }
 
   Future<void> toggleSefieMode() async {
