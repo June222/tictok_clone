@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPreviewScreen extends StatefulWidget {
@@ -14,6 +16,7 @@ class VideoPreviewScreen extends StatefulWidget {
 
 class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
   late final VideoPlayerController _videoPlayerController; // 실행시키기 위한 비디오 컨트롤러
+  bool _isSaved = false;
 
   @override
   void initState() {
@@ -39,11 +42,28 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     setState(() {}); // 이거 하지않으면 화면 재생이 안됨.
   }
 
+  Future<void> _saveToGallery() async {
+    if (_isSaved) return;
+    _isSaved = true;
+    await GallerySaver.saveVideo(widget.video.path, albumName: "Tictok Clone!");
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     log(widget.video.path);
     return Scaffold(
-      appBar: AppBar(title: const Text("Preview Video")),
+      appBar: AppBar(
+        title: const Text("Preview Video"),
+        actions: [
+          IconButton(
+            onPressed: _saveToGallery,
+            icon: FaIcon(
+              _isSaved ? FontAwesomeIcons.check : FontAwesomeIcons.download,
+            ),
+          )
+        ],
+      ),
       body: _videoPlayerController.value.isInitialized
           ? VideoPlayer(
               _videoPlayerController) // type(VideoPlayer) == Widget 임.
